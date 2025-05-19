@@ -3,11 +3,11 @@ name: CI
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["Main"]
   # Runs on pull requests opened or reopened targeting the default branch
   pull_request:
     types: [opened, reopened]
-    branches: ["main"]
+    branches: ["Main"]
 
 jobs:
   # name of the pipeline job
