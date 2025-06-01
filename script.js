@@ -8,43 +8,36 @@
 function integerToRoman(num) {
   // Validate that the number is within the allowed range (1-3999)
   if (num <= 0 || num >= 4000) {
-    throw new Error('The number must be between 1 and 3999.');
+    throw new Error("The number must be between 1 and 3999.");
   }
 
   const originalNum = num; // Save original input number
 
   // Array mapping integer values to their corresponding Roman numeral symbols.
   const romanNumerals = [
-    { value: 1000, numeral: 'M' },
-    { value: 900, numeral: 'CM' },
-    { value: 500, numeral: 'D' },
-    { value: 400, numeral: 'CD' },
-    { value: 100, numeral: 'C' },
-    { value: 90, numeral: 'XC' },
-    { value: 50, numeral: 'L' },
-    { value: 40, numeral: 'XL' },
-    { value: 10, numeral: 'X' },
-    { value: 9, numeral: 'IX' },
-    { value: 5, numeral: 'V' },
-    { value: 4, numeral: 'IV' },
-    { value: 1, numeral: 'I' }
+    { value: 1000, numeral: "M" },
+    { value: 900, numeral: "CM" },
+    { value: 500, numeral: "D" },
+    { value: 400, numeral: "CD" },
+    { value: 100, numeral: "C" },
+    { value: 90, numeral: "XC" },
+    { value: 50, numeral: "L" },
+    { value: 40, numeral: "XL" },
+    { value: 10, numeral: "X" },
+    { value: 9, numeral: "IX" },
+    { value: 5, numeral: "V" },
+    { value: 4, numeral: "IV" },
+    { value: 1, numeral: "I" },
   ];
 
-  let result = '';
+  let result = "";
   // Loop through each numeral mapping, appending the numeral symbol
   // as many times as possible while subtracting its value from num.
   for (const { value, numeral } of romanNumerals) {
     while (num >= value) {
-      result += numeral;  // Append the numeral to the result string.
-      num -= value;       // Subtract the numeral's value from num.
+      result += numeral; // Append the numeral to the result string.
+      num -= value; // Subtract the numeral's value from num.
     }
-  }
-  if (typeof gtag === 'function') {
-    gtag('event', 'conversion', {
-      conversion_type: 'int_to_roman',
-      input_value: originalNum,
-      output_value: result
-    });
   }
 
   return result;
@@ -59,26 +52,26 @@ function integerToRoman(num) {
  */
 function romanToInteger(roman) {
   // Validate that the input is a non-empty string.
-  if (typeof roman !== 'string' || roman.trim() === '') {
-    throw new Error('Input must be a valid Roman numeral.');
+  if (typeof roman !== "string" || roman.trim() === "") {
+    throw new Error("Input must be a valid Roman numeral.");
   }
   // Standardize the input by converting it to uppercase.
   roman = roman.toUpperCase();
 
   // Check that the string contains only valid Roman numeral characters.
   if (!/^[IVXLCDM]+$/.test(roman)) {
-    throw new Error('The Roman numeral contains invalid characters.');
+    throw new Error("The Roman numeral contains invalid characters.");
   }
 
   // Mapping of Roman numeral characters to their integer values.
   const romanMap = {
-    'I': 1,
-    'V': 5,
-    'X': 10,
-    'L': 50,
-    'C': 100,
-    'D': 500,
-    'M': 1000
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
   };
 
   let total = 0;
@@ -95,7 +88,7 @@ function romanToInteger(roman) {
       // Otherwise, add its value.
       total += currentValue;
     }
-    previousValue = currentValue;  // Update previousValue for the next iteration.
+    previousValue = currentValue; // Update previousValue for the next iteration.
   }
 
   // Validate that the Roman numeral is in canonical form.
@@ -103,15 +96,7 @@ function romanToInteger(roman) {
   // and comparing it with the original input.
   const reconversion = integerToRoman(total);
   if (reconversion !== roman) {
-    throw new Error('The Roman numeral is not in canonical form.');
-  }
-
-  if (typeof gtag === 'function') {
-    gtag('event', 'conversion', {
-      conversion_type: 'roman_to_int',
-      input_value: roman,
-      output_value: total
-    });
+    throw new Error("The Roman numeral is not in canonical form.");
   }
 
   return total;
@@ -124,28 +109,28 @@ function romanToInteger(roman) {
  */
 function handleConversion() {
   // Retrieve the selected conversion mode (either 'intToRoman' or 'romanToInt').
-  const mode = document.getElementById('conversionMode').value;
+  const mode = document.getElementById("conversionMode").value;
   // Get the user input from the input field.
-  const input = document.getElementById('inputValue').value.trim();
+  const input = document.getElementById("inputValue").value.trim();
   // Get references to the result and error display elements.
-  const resultDiv = document.getElementById('result');
-  const errorDiv = document.getElementById('error');
+  const resultDiv = document.getElementById("result");
+  const errorDiv = document.getElementById("error");
 
   // Clear any previous result or error messages.
-  resultDiv.textContent = '';
-  errorDiv.textContent = '';
+  resultDiv.textContent = "";
+  errorDiv.textContent = "";
 
   try {
-    if (mode === 'intToRoman') {
+    if (mode === "intToRoman") {
       // Attempt to parse the input as an integer.
       const num = parseInt(input, 10);
       if (isNaN(num)) {
-        throw new Error('Please enter a valid integer number.');
+        throw new Error("Please enter a valid integer number.");
       }
       // Convert the integer to a Roman numeral.
       const roman = integerToRoman(num);
       resultDiv.textContent = `Roman Numeral: ${roman}`;
-    } else if (mode === 'romanToInt') {
+    } else if (mode === "romanToInt") {
       // Convert the Roman numeral to an integer.
       const num = romanToInteger(input);
       resultDiv.textContent = `Integer: ${num}`;
@@ -157,4 +142,6 @@ function handleConversion() {
 }
 
 // Attach an event listener to the convert button to trigger the conversion when clicked.
-document.getElementById('convertButton').addEventListener('click', handleConversion);
+document
+  .getElementById("convertButton")
+  .addEventListener("click", handleConversion);
