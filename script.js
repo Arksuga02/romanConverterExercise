@@ -10,7 +10,9 @@ function integerToRoman(num) {
   if (num <= 0 || num >= 4000) {
     throw new Error('The number must be between 1 and 3999.');
   }
-  
+
+  const originalNum = num; // Save original input number
+
   // Array mapping integer values to their corresponding Roman numeral symbols.
   const romanNumerals = [
     { value: 1000, numeral: 'M' },
@@ -37,6 +39,16 @@ function integerToRoman(num) {
       num -= value;       // Subtract the numeral's value from num.
     }
   }
+
+  // Send conversion event to Google Analytics (if gtag is defined)
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+      conversion_type: 'int_to_roman',
+      input_value: originalNum,
+      output_value: result
+    });
+  }
+
   return result;
 }
 
@@ -54,12 +66,12 @@ function romanToInteger(roman) {
   }
   // Standardize the input by converting it to uppercase.
   roman = roman.toUpperCase();
-  
+
   // Check that the string contains only valid Roman numeral characters.
   if (!/^[IVXLCDM]+$/.test(roman)) {
     throw new Error('The Roman numeral contains invalid characters.');
   }
-  
+
   // Mapping of Roman numeral characters to their integer values.
   const romanMap = {
     'I': 1,
@@ -70,10 +82,10 @@ function romanToInteger(roman) {
     'D': 500,
     'M': 1000
   };
-  
+
   let total = 0;
   let previousValue = 0;
-  
+
   // Iterate through the numeral from right to left.
   // This approach helps in handling subtractive notation (e.g., IV is 4).
   for (let i = roman.length - 1; i >= 0; i--) {
@@ -87,7 +99,7 @@ function romanToInteger(roman) {
     }
     previousValue = currentValue;  // Update previousValue for the next iteration.
   }
-  
+
   // Validate that the Roman numeral is in canonical form.
   // This is done by converting the computed integer back to a Roman numeral
   // and comparing it with the original input.
@@ -95,7 +107,16 @@ function romanToInteger(roman) {
   if (reconversion !== roman) {
     throw new Error('The Roman numeral is not in canonical form.');
   }
-  
+
+  // Send conversion event to Google Analytics (if gtag is defined)
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+      conversion_type: 'roman_to_int',
+      input_value: roman,
+      output_value: total
+    });
+  }
+
   return total;
 }
 
@@ -140,4 +161,3 @@ function handleConversion() {
 
 // Attach an event listener to the convert button to trigger the conversion when clicked.
 document.getElementById('convertButton').addEventListener('click', handleConversion);
-
