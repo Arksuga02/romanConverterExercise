@@ -40,14 +40,12 @@ function integerToRoman(num) {
     }
   }
 
-  // Send conversion event to Google Analytics (if gtag is defined)
-  if (typeof gtag === 'function') {
-    gtag('event', 'conversion', {
-      conversion_type: 'int_to_roman',
-      input_value: originalNum,
-      output_value: result
-    });
-  }
+  gtag('event', 'conversion', {
+    conversion_type: 'int_to_roman',
+    input_value: originalNum,
+    output_value: result
+  });
+  
 
   return result;
 }
@@ -108,14 +106,13 @@ function romanToInteger(roman) {
     throw new Error('The Roman numeral is not in canonical form.');
   }
 
-  // Send conversion event to Google Analytics (if gtag is defined)
-  if (typeof gtag === 'function') {
-    gtag('event', 'conversion', {
-      conversion_type: 'roman_to_int',
-      input_value: roman,
-      output_value: total
-    });
-  }
+
+  gtag('event', 'conversion', {
+    conversion_type: 'roman_to_int',
+    input_value: roman,
+    output_value: total
+  });
+  
 
   return total;
 }
