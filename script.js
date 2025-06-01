@@ -39,13 +39,13 @@ function integerToRoman(num) {
       num -= value;       // Subtract the numeral's value from num.
     }
   }
-if (typeof gtag === 'function') {
-  gtag('event', 'conversion', {
-    conversion_type: 'int_to_roman',
-    input_value: originalNum,
-    output_value: result
-  });
-}
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+      conversion_type: 'int_to_roman',
+      input_value: originalNum,
+      output_value: result
+    });
+  }
 
   return result;
 }
@@ -106,13 +106,13 @@ function romanToInteger(roman) {
     throw new Error('The Roman numeral is not in canonical form.');
   }
 
-if (typeof gtag === 'function') {
-  gtag('event', 'conversion', {
-    conversion_type: 'roman_to_int',
-    input_value: roman,
-    output_value: total
-  });
-}
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+      conversion_type: 'roman_to_int',
+      input_value: roman,
+      output_value: total
+    });
+  }
 
   return total;
 }
